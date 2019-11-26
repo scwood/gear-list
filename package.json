@@ -1,7 +1,7 @@
 {
   "name": "gear-list",
   "version": "0.1.0",
-  "private": true,
+  "homepage": "https://scwood.github.io/gear-list",
   "dependencies": {
     "papaparse": "^5.1.0",
     "prop-types": "^15.7.2",
