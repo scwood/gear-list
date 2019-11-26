@@ -1,5 +1,10 @@
 import React from 'react';
-import testData from './testData';
+import propTypes from 'prop-types';
+
+Section.propTypes = {
+  section: propTypes.object.isRequired,
+  items: propTypes.array.isRequired,
+};
 
 export default function Section({section, items}) {
   return (
