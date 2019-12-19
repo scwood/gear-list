@@ -1,9 +1,10 @@
 import Papa from 'papaparse';
+import GearListSection from './dataObjects/GearListSection';
+import GearListItem from './dataObjects/GearListItem';
 
 const exportedLighterPackData = `Item Name,Category,desc,qty,weight,unit
 Atom Packs Atom+,Pack,pack,1,24,ounce
 Trash compactor bag,Pack,liner,1,0.7,ounce
-Atom Packs Atom+,Pack,pack minus hip belt and frame,0,19,ounce
 TarpTent Stratospire 2,Shelter,"inner, fly, stuff sack, stakes",1,44.6,ounce
 Monoprice Carbon Cork Trekking poles,Shelter,trekking poles / tent poles,1,15.2,ounce
 Katabatic Alsek,Sleep,quilt,1,24,ounce
@@ -36,19 +37,28 @@ EVA foam pad,Misc,sit pad,1,1,ounce
 Hillsound Crampon Ultra,Misc,microspikes,0,16,ounce
 BV500,Misc,bear can,0,41,ounce`;
 
-const parsed = Papa.parse(exportedLighterPackData, {header: true});
+const parsed: Papa.ParseResult = Papa.parse(exportedLighterPackData, {
+  header: true,
+});
 
-const initialData = {
+interface TestData {
+  items: {[key: string]: GearListItem};
+  sections: {[key: string]: GearListSection};
+  sectionOrder: string[];
+}
+
+const testData: TestData = {
   items: {},
   sections: {},
   sectionOrder: [],
 };
 
-const sectionNameToId = {};
+const sectionNameToId: {[key: string]: string} = {};
 
 parsed.data.forEach((item, index) => {
   const itemId = 'i' + index;
-  initialData.items[itemId] = {
+  testData.items[itemId] = {
+    id: itemId,
     name: item['Item Name'],
     description: item.desc,
     quantity: item.qty,
@@ -62,12 +72,14 @@ parsed.data.forEach((item, index) => {
   } else {
     sectionId = 's' + Object.keys(sectionNameToId).length;
     sectionNameToId[sectionName] = sectionId;
-    initialData.sectionOrder.push(sectionId);
-    initialData.sections[sectionId] = {name: sectionName, itemIds: []};
+    testData.sectionOrder.push(sectionId);
+    testData.sections[sectionId] = {
+      id: sectionId,
+      name: sectionName,
+      itemIds: [],
+    };
   }
-  initialData.sections[sectionId].itemIds.push(itemId);
+  testData.sections[sectionId].itemIds.push(itemId);
 });
 
-console.log(initialData);
-
-export default initialData;
+export default testData;
