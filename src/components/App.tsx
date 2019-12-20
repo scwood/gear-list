@@ -1,10 +1,12 @@
 import React from 'react';
-import SectionList from './SectionList';
+import GearList from './GearList';
 
-export default function App() {
+const App: React.FC = () => {
   return (
     <section className="sans-serif mw8 center black-80 ph3">
-      <SectionList />
+      <GearList />
     </section>
   );
-}
+};
+
+export default App;
