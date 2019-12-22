@@ -42,8 +42,8 @@ const parsed: Papa.ParseResult = Papa.parse(exportedLighterPackData, {
 });
 
 interface TestData {
-  items: { [key: string]: GearListItem };
-  sections: { [key: string]: GearListSection };
+  items: { [id: string]: GearListItem };
+  sections: { [id: string]: GearListSection };
   sectionOrder: string[];
 }
 
