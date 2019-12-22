@@ -9,19 +9,8 @@ module.exports =  {
     ecmaVersion:  2019,
     sourceType:  'module',
     ecmaFeatures:  {
-      jsx:  true,
+      
     },
-  },
-  rules: {
-    'prettier/prettier': [
-      'error',
-      {
-        arrowParens: 'always',
-        bracketSpacing: false,
-        singleQuote: true,
-        trailingComma: 'all',
-      },
-    ],
   },
   settings:  {
     react:  {
