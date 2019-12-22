@@ -1,15 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import GearListSection from "../dataObjects/GearListSection";
 import GearListItem from "../dataObjects/GearListItem";
 
 interface SectionViewProps {
   section: GearListSection;
   items: GearListItem[];
+  onAddItemRow: (sectionId: string) => GearListItem;
 }
 
 const SectionView: React.FC<SectionViewProps> = (props: SectionViewProps) => {
-  const items = useState([]);
-
   return (
     <div className="fl w-100 mb4">
       <h1 className="f3 mb2 ml1">{props.section.name}</h1>
@@ -23,6 +22,13 @@ const SectionView: React.FC<SectionViewProps> = (props: SectionViewProps) => {
           </div>
         );
       })}
+      <button
+        onClick={(): void => {
+          props.onAddItemRow(props.section.id);
+        }}
+      >
+        Add item
+      </button>
     </div>
   );
 };
