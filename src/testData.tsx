@@ -1,6 +1,6 @@
-import Papa from 'papaparse';
-import GearListSection from './dataObjects/GearListSection';
-import GearListItem from './dataObjects/GearListItem';
+import Papa from "papaparse";
+import GearListSection from "./dataObjects/GearListSection";
+import GearListItem from "./dataObjects/GearListItem";
 
 const exportedLighterPackData = `Item Name,Category,desc,qty,weight,unit
 Atom Packs Atom+,Pack,pack,1,24,ounce
@@ -38,45 +38,45 @@ Hillsound Crampon Ultra,Misc,microspikes,0,16,ounce
 BV500,Misc,bear can,0,41,ounce`;
 
 const parsed: Papa.ParseResult = Papa.parse(exportedLighterPackData, {
-  header: true,
+  header: true
 });
 
 interface TestData {
-  items: {[key: string]: GearListItem};
-  sections: {[key: string]: GearListSection};
+  items: { [key: string]: GearListItem };
+  sections: { [key: string]: GearListSection };
   sectionOrder: string[];
 }
 
 const testData: TestData = {
   items: {},
   sections: {},
-  sectionOrder: [],
+  sectionOrder: []
 };
 
-const sectionNameToId: {[key: string]: string} = {};
+const sectionNameToId: { [key: string]: string } = {};
 
 parsed.data.forEach((item, index) => {
-  const itemId = 'i' + index;
+  const itemId = "i" + index;
   testData.items[itemId] = {
     id: itemId,
-    name: item['Item Name'],
+    name: item["Item Name"],
     description: item.desc,
     quantity: item.qty,
     weight: item.weight,
-    unit: item.unit,
+    unit: item.unit
   };
   const sectionName = item.Category;
   let sectionId;
   if (sectionName in sectionNameToId) {
     sectionId = sectionNameToId[sectionName];
   } else {
-    sectionId = 's' + Object.keys(sectionNameToId).length;
+    sectionId = "s" + Object.keys(sectionNameToId).length;
     sectionNameToId[sectionName] = sectionId;
     testData.sectionOrder.push(sectionId);
     testData.sections[sectionId] = {
       id: sectionId,
       name: sectionName,
-      itemIds: [],
+      itemIds: []
     };
   }
   testData.sections[sectionId].itemIds.push(itemId);

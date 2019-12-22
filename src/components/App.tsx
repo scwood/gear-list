@@ -1,5 +1,5 @@
-import React from 'react';
-import GearList from './GearList';
+import React from "react";
+import GearList from "./GearList";
 
 const App: React.FC = () => {
   return (
